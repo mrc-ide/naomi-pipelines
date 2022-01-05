@@ -1,0 +1,5 @@
+steps:
+  - label: ":rocket: preview"
+    command: "ssh vagrant@wpia-naomi-preview.dide.ic.ac.uk 'cd hint-deploy && git pull && ./hint upgrade all'"
+    agents:
+      queue: "deploy"
