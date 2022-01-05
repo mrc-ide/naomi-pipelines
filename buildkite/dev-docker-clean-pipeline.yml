@@ -1,0 +1,3 @@
+steps:
+  - label: ":rocket: dev docker clean"
+    command: "ssh vagrant@wpia-naomi-dev.dide.ic.ac.uk 'docker system prune -f'"
