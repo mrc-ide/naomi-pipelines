@@ -1,5 +1,0 @@
-steps:
-  - label: ":rocket: production"
-    command: "ssh -i ~/.ssh/id_hiv vagrant@wpia-naomi.dide.ic.ac.uk 'cd hint-deploy && git pull && ./hint upgrade all'"
-    agents:
-      queue: "deploy"
