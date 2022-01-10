@@ -2,4 +2,4 @@ steps:
   - label: ":rocket: staging"
     command: "ssh -i ~/.ssh/id_hiv vagrant@naomi-staging.dide.ic.ac.uk 'cd hint-deploy && git pull && ./hint upgrade all'"
     agents:
-      queue: "deploy"
+      queue: "hint-deploy"
