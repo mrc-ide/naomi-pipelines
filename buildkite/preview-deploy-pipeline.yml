@@ -1,5 +1,11 @@
+env:
+  HINTR_BRANCH: master
+  HINT_BRANCH: master
+  DEPLOY: all
+
+agents:
+      queue: "hint-deploy"
+
 steps:
   - label: ":rocket: preview"
-    command: "ssh -i ~/.ssh/id_hiv vagrant@naomi-preview.dide.ic.ac.uk 'cd hint-deploy && git pull && ./hint upgrade all'"
-    agents:
-      queue: "hint-deploy"
+    command: "ssh -i ~/.ssh/id_hiv vagrant@naomi-preview.dide.ic.ac.uk 'cd hint-deploy && git pull && ./hint upgrade --hintr-branch=$HINTR_BRANCH --hint-branch=$HINT_BRANCH $DEPLOY'"
