@@ -1,7 +1,7 @@
 env:
-  HINTR_BRANCH: master
-  HINT_BRANCH: master
-  DEPLOY: all
+  HINTR_BRANCH: "${HINTR_BRANCH:-master}"
+  HINT_BRANCH: "${HINT_BRANCH:-master}"
+  DEPLOY: "${DEPLOY:-all}"
 
 
 steps:
