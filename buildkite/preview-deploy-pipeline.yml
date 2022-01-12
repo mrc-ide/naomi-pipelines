@@ -1,11 +1,11 @@
 env:
-  HINTR_BRANCH: master
-  HINT_BRANCH: master
-  DEPLOY: all
+  HINTR_BRANCH: "${HINTR_BRANCH:-master}"
+  HINT_BRANCH: "${HINT_BRANCH:-master}"
+  DEPLOY: "${DEPLOY:-all}"
 
-agents:
-      queue: "hint-deploy"
 
 steps:
   - label: ":rocket: preview"
-    command: "ssh -i ~/.ssh/id_hiv vagrant@naomi-preview.dide.ic.ac.uk 'cd hint-deploy && git pull && ./hint upgrade --hintr-branch=$HINTR_BRANCH --hint-branch=$HINT_BRANCH $DEPLOY'"
+    command: "ssh -i ~/.ssh/id_hiv -oStrictHostKeyChecking=accept-new vagrant@naomi-preview.dide.ic.ac.uk 'source /etc/profile.d/myvars.sh && cd hint-deploy && git pull && ./hint upgrade --hintr-branch=$HINTR_BRANCH --hint-branch=$HINT_BRANCH $DEPLOY'"
+    agents:
+      queue: "hint-deploy"
