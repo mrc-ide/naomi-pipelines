@@ -5,9 +5,10 @@ env:
 
 
 steps:
-  - label: ":rocket: staging"
+  - label: ":rocket: production"
     command: >-
-      ssh -i ~/.ssh/id_hiv -oStrictHostKeyChecking=accept-new vagrant@naomi-staging.dide.ic.ac.uk 
+      ssh -i ~/.ssh/id_hiv -oStrictHostKeyChecking=accept-new vagrant@naomi.dide.ic.ac.uk 
       './clean-and-deploy-naomi.sh --hintr-branch=$HINTR_BRANCH --hint-branch=$HINT_BRANCH $DEPLOY'
     agents:
       queue: "hint-deploy"
+
