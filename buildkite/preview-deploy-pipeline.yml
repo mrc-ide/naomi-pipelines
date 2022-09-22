@@ -6,6 +6,8 @@ env:
 
 steps:
   - label: ":rocket: preview"
-    command: "ssh -i ~/.ssh/id_hiv -oStrictHostKeyChecking=accept-new vagrant@naomi-preview.dide.ic.ac.uk './clean-and-deploy-naomi.sh --hintr-branch=$HINTR_BRANCH --hint-branch=$HINT_BRANCH $DEPLOY'"
+    command: >-
+      ssh -i ~/.ssh/id_hiv -oStrictHostKeyChecking=accept-new vagrant@naomi-preview.dide.ic.ac.uk 
+      './clean-and-deploy-naomi.sh --hintr-branch=$HINTR_BRANCH --hint-branch=$HINT_BRANCH $DEPLOY'
     agents:
       queue: "hint-deploy"
