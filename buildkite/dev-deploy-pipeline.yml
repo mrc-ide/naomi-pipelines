@@ -1,14 +1,10 @@
-env:
-  HINTR_BRANCH: "${HINTR_BRANCH:-master}"
-  HINT_BRANCH: "${HINT_BRANCH:-master}"
-  DEPLOY: "${DEPLOY:-all}"
-
-
 steps:
-  - label: ":rocket: dev"
-    command: >- 
-      ssh -i ~/.ssh/id_hiv -oStrictHostKeyChecking=accept-new vagrant@naomi-dev.dide.ic.ac.uk 
-      './clean-and-deploy-naomi.sh --hintr-branch=$HINTR_BRANCH --hint-branch=$HINT_BRANCH $DEPLOY'
+  - label: ":rocket: Dev"
+    command: |
+      DEPLOY=$(buildkite-agent meta-data get deploy)
+      HINT_BRANCH=$(buildkite-agent meta-data get hint-branch)
+      HINTR_BRANCH=$(buildkite-agent meta-data get hintr-branch)
+      ssh -i ~/.ssh/id_hiv -oStrictHostKeyChecking=accept-new vagrant@naomi-dev.dide.ic.ac.uk \
+        "./clean-and-deploy-naomi.sh --hintr-branch=$$HINTR_BRANCH --hint-branch=$$HINT_BRANCH $$DEPLOY"
     agents:
       queue: "hint-deploy"
-
