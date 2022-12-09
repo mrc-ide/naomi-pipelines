@@ -1,29 +1,5 @@
 steps:
-  - input: "Deploy"
-    fields:
-      - select: "Deploy whole app or only backend?"
-        key: "deploy"
-        required: true
-        default: "all"
-        options:
-          - label: "Whole app"
-            value: "all"
-          - label: "Hintr only"
-            value: "hintr"
-
-      - text: "Hint branch to deploy"
-        key: "hint-branch"
-        required: true
-        default: "master"
-
-      - text: "Hintr branch to deploy"
-        key: "hintr-branch"
-        required: true
-        default: "master"
-
-  - wait
-
-  - label: ":rocket: preview"
+  - label: ":rocket: Production"
     command: |
       DEPLOY=$(buildkite-agent meta-data get deploy)
       HINT_BRANCH=$(buildkite-agent meta-data get hint-branch)
