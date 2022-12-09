@@ -1,37 +1,34 @@
-env:
-  HINTR_BRANCH: "${HINTR_BRANCH:-master}"
-  HINT_BRANCH: "${HINT_BRANCH:-master}"
-  DEPLOY: "${DEPLOY:-all}"
-
 steps:
   - input: "Deploy"
     fields:
-      - select: "Deploy level"
+      - select: "Deploy whole app or only backend?"
         key: "deploy"
-        hint: "Deploy whole app or only backend?"
         required: true
         default: "all"
         options:
-          - label: "All components"
+          - label: "Whole app"
             value: "all"
-          - label: "R backend only"
+          - label: "Hintr only"
             value: "hintr"
 
-      - text: "hint branch"
+      - text: "Hint branch to deploy"
         key: "hint-branch"
-        hint: "What hint branch to deploy?"
         required: true
         default: "master"
 
-      - text: "hintr branch"
+      - text: "Hintr branch to deploy"
         key: "hintr-branch"
-        hint: "What hintr branch to deploy?"
         required: true
         default: "master"
 
-  - label: ":rocket: dev"
-    command: >-
-      ssh -i ~/.ssh/id_hiv -oStrictHostKeyChecking=accept-new vagrant@naomi-dev.dide.ic.ac.uk
-      './clean-and-deploy-naomi.sh --hintr-branch=$(buildkite-agent meta-data get hintr-branch) --hint-branch=$(buildkite-agent meta-data get hint-branch) $(buildkite-agent meta-data get deploy)'
+  - wait
+
+  - label: ":rocket: preview"
+    command: |
+      DEPLOY=$(buildkite-agent meta-data get deploy)
+      HINT_BRANCH=$(buildkite-agent meta-data get hint-branch)
+      HINTR_BRANCH=$(buildkite-agent meta-data get hintr-branch)
+      ssh -i ~/.ssh/id_hiv -oStrictHostKeyChecking=accept-new vagrant@naomi-dev.dide.ic.ac.uk \
+        "./clean-and-deploy-naomi.sh --hintr-branch=$$HINTR_BRANCH --hint-branch=$$HINT_BRANCH $$DEPLOY"
     agents:
       queue: "hint-deploy"
